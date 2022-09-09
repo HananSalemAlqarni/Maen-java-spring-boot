@@ -1,13 +1,13 @@
 pipeline {
     agent any
     environment {
-        AWS_ACCESS_KEY_ID = credentials('jenkins-access-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('jenkins-secret-access-key')
-        AWS_S3_BUCKET = "enok"
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_S3_BUCKET = "teamcity-5"
         ARTIFACT_NAME = "spring-boot.jar"
-        AWS_EB_APP_NAME = "enok"
+        AWS_EB_APP_NAME = "teamcity"
         AWS_EB_APP_VERSION = "${BUILD_ID}"
-        AWS_EB_ENVIRONMENT = "Enok-env"
+        AWS_EB_ENVIRONMENT = "Teamcity-env"
     }
     stages {
         stage('Validate') {
@@ -50,8 +50,8 @@ pipeline {
          }
         stage('Deploy') {
             steps {
-                sh 'aws elasticbeanstalk create-application-version --application-name $AWS_EB_APP_NAME --version-label $AWS_EB_APP_VERSION --source-bundle S3Bucket=$AWS_S3_BUCKET,S3Key=$ARTIFACT_NAME'
-                sh 'aws elasticbeanstalk update-environment --application-name $AWS_EB_APP_NAME --environment-name $AWS_EB_ENVIRONMENT --version-label $AWS_EB_APP_VERSION'
+                sh 'aws elasticbeanstalk create-application-version --application-name teamcity --version-label $AWS_EB_APP_VERSION --source-bundle S3Bucket=teamcity-5,S3Key=te.jar'
+                sh 'aws elasticbeanstalk update-environment --application-name teamcity --environment-name Teamcity-env --version-label 1'
             }
          }
         
