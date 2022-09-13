@@ -1,10 +1,10 @@
-package com.codingdojo.Mavenjava.spring.boot;
+package com.example.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MavenJavaSpringBootApplicationTests {
+class GoldenWasteddApplicationTests {
 
 	@Test
 	void contextLoads() {
